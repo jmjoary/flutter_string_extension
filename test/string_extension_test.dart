@@ -78,6 +78,56 @@ void main() {
     });
   });
 
+  group('toCamelCase', () {
+    test('convertit une phrase simple en camelCase', () {
+      expect('formation pleniere'.toCamelCase(), 'formationPleniere');
+    });
+
+    test('gère les accents aigus (é, è, ê)', () {
+      expect('Formation Plénière'.toCamelCase(), 'formationPleniere');
+    });
+
+    test('gère les accents grave et circonflex (à, â, ô, û)', () {
+      expect('Tâche à faire'.toCamelCase(), 'tacheAFaire');
+    });
+
+    test('gère le tréma (ë, ï, ü)', () {
+      expect('Noël Naïf'.toCamelCase(), 'noelNaif');
+    });
+
+    test('gère le ç', () {
+      expect('Façade principale'.toCamelCase(), 'facadePrincipale');
+    });
+
+    test('gère le œ', () {
+      expect('Cœur ouvert'.toCamelCase(), 'coeurOuvert');
+    });
+
+    test('gère les tirets comme séparateurs', () {
+      expect('sous-titre important'.toCamelCase(), 'sousTitreImportant');
+    });
+
+    test('gère les underscores comme séparateurs', () {
+      expect('mon_champ_texte'.toCamelCase(), 'monChampTexte');
+    });
+
+    test('gère les majuscules en entrée', () {
+      expect('RÉUNION D ÉQUIPE'.toCamelCase(), 'reunionDEquipe');
+    });
+
+    test('fonctionne avec un seul mot', () {
+      expect('Bonjour'.toCamelCase(), 'bonjour');
+    });
+
+    test('retourne une chaîne vide pour une chaîne vide', () {
+      expect(''.toCamelCase(), '');
+    });
+
+    test('gère les espaces multiples', () {
+      expect('un  mot'.toCamelCase(), 'unMot');
+    });
+  });
+
   group('hostDomain', () {
     test('extrait le domaine depuis une URL https', () {
       expect('https://www.example.com/path'.hostDomain(), 'example.com');
